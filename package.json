@@ -1,0 +1,28 @@
+{
+  "name": "node-main",
+  "version": "1.0.0",
+  "description": "Dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Anna Avagyan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "crypto": "^1.0.1",
+    "dnscache": "^1.0.2",
+    "dotenv": "^8.0.0",
+    "ejs": "^3.1.5",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.19",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "5.8.6",
+    "mongoose-to-swagger": "^1.0.3",
+    "uuid": "^8.2.0",
+    "winston": "^3.3.3"
+  }
+}
