@@ -36,6 +36,8 @@ app.use(bodyParser.json({
     limit: "6mb"
 }));
 
+app.set("view engine", "hbs");
+
 app.use(queryValidation);
 
 app.use((req, res, next) => {
@@ -53,6 +55,7 @@ app.use((req, res, next) => {
     }
     next();
 });
+
 
 app.use("/api", userAuth);
 

@@ -13,7 +13,7 @@ const auth = {
                 return next(new UnauthorizedException("invalid token"));
             }
             req.user = obj;
-            next();
+            return res.render("login.hbs")
         } catch (error) {
             return next(new UnauthorizedException("Unauthorized: No authorization header"));
         }

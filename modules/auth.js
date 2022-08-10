@@ -6,18 +6,17 @@ const uuid = require("uuid")
 const crypto = require("crypto");
 async function createUser(req, res, next){
     const body = req.body;
-
-    if(body.userId || body.password){
+    if(!body.email || !body.password){
         throw new BadRequestException("invalid body")
     }
 
-    const user = await User.findOne({userId: body.userId});
+    const user = await User.findOne({email: body.email});
 
     if(user){
         throw new ConflictException();
     }
 
-    const userId = uuid()
+    const userId = uuid.v5()
    
     const encryptedPassword =  crypto.createHash("md5").update(body.password).digest("hex");
 
@@ -54,7 +53,9 @@ async function deleteUser(req, res, next){
     if(body.userId || body.password){
         throw new BadRequestException("invalid body")
     }
-  
+
+    const userId = body.userId;
+   
     const encryptedPassword =  crypto.createHash("md5").update(body.password).digest("hex");
 
     const user = await User.findOne({userId, password : encryptedPassword});
@@ -63,9 +64,9 @@ async function deleteUser(req, res, next){
         throw new BadRequestException("invalid user")
     }
 
-    await User.findOneAndDelete({userId : user.userId, password: encryptedPassword});
+    await User.findOneAndDelete({userId, password: encryptedPassword});
 
-    await Token.findOneAndDelete({userId : user.userId});
+    await Token.findOneAndDelete({userId});
 
     return {};
 
@@ -101,21 +102,8 @@ async function login(req, res, next){
 
 }
 
-async function logout(req,res){
-    const body = req.body;
-    if(body.userId || body.password){
-        throw new BadRequestException("invalid body")
-    }
-
-    const userId = body.userId;
-    await Token.findOneAndDelete({userId: req.user.userId});
-    return {}
-
-}
-
 module.exports = {
     createUser,
     deleteUser,
-    login,
-    logout
+    login
 }

@@ -12,6 +12,12 @@ class DefaultException extends Error {
     }
 }
 
+class ExceptionMessage {
+    constructor (title, message) {
+        this.title = title;
+        this.message = message;
+    }
+}
 class ServiceUnavailableException extends DefaultException {
     constructor (
         message = "Server Unavailable Error",
@@ -19,6 +25,16 @@ class ServiceUnavailableException extends DefaultException {
         ...params) {
         super(message, status, ...params);
         this.exception = "ServiceUnavailable";
+    }
+}
+
+class WithMessageException extends DefaultException {
+    constructor (
+        message = "Something went wrong",
+        status = 403,
+        ...params) {
+        super(message, status, ...params);
+        this.exception = "WithMessageException";
     }
 }
 
@@ -37,7 +53,9 @@ module.exports = {
     UnauthorizedException,
     ForbiddenException,
     ServerInternalException,
+    ExceptionMessage,
     ServiceUnavailableException,
+    WithMessageException,
     BadRequestException,
     ConflictException
 };
